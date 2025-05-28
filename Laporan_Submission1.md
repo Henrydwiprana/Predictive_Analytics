@@ -150,7 +150,12 @@ Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dil
 
   1) Pemuatan Data dan Inspeksi Awal
        - df.head(): Menampilkan beberapa baris pertama dari dataset. Ini memberikan gambaran cepat tentang bagaimana data terstruktur, nama-nama kolom, dan jenis nilai yang terkandung di dalamnya.
-       - df.info(): Menyediakan ringkasan singkat tentang DataFrame, termasuk jumlah entri, jumlah kolom, tipe data masing-masing kolom (misalnya, int64, float64), dan keberadaan nilai non-null. Ini membantu dalam mengidentifikasi apakah ada kolom dengan nilai yang hilang secara eksplisit (NaN) pada tahap awa
+         
+         ![head](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/head.png)
+         
+       - df.info(): Menyediakan ringkasan singkat tentang DataFrame, termasuk jumlah entri, jumlah kolom, tipe data masing-masing kolom (misalnya, int64, float64), dan keberadaan nilai non-null. Ini membantu dalam mengidentifikasi apakah ada kolom dengan nilai yang hilang secara eksplisit (NaN) pada tahap awal
+
+         ![info]()
 
 ## Modeling
 Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
