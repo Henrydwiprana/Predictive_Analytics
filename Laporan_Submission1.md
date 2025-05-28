@@ -151,12 +151,51 @@ Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dil
   1) Pemuatan Data dan Inspeksi Awal
        - df.head(): Menampilkan beberapa baris pertama dari dataset. Ini memberikan gambaran cepat tentang bagaimana data terstruktur, nama-nama kolom, dan jenis nilai yang terkandung di dalamnya.
          
-         ![head](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/head.png)
+         ![head](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/head.png)
          
        - df.info(): Menyediakan ringkasan singkat tentang DataFrame, termasuk jumlah entri, jumlah kolom, tipe data masing-masing kolom (misalnya, int64, float64), dan keberadaan nilai non-null. Ini membantu dalam mengidentifikasi apakah ada kolom dengan nilai yang hilang secara eksplisit (NaN) pada tahap awal
 
-         ![info](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/info.png)
+         ![info](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/info.png)
 
+  2) Statistik Deskriptif dan Identifikasi Nilai Tidak Masuk Akal
+       - df.describe(): Menghasilkan statistik deskriptif untuk setiap kolom numerik, seperti hitungan (count), rata-rata (mean), standar deviasi (std), nilai minimum       
+         (min), nilai maksimum (max), serta kuartil (25%, 50% / median, 75%).
+
+         Seperti yang telah dibahas sebelumnya, observasi penting dari df.describe() adalah adanya nilai 0 pada kolom Glucose, BloodPressure, SkinThickness, Insulin, dan             BMI. Nilai nol untuk fitur-fitur ini secara medis tidak masuk akal (misalnya, tekanan darah nol atau BMI nol pada individu hidup). Ini mengindikasikan bahwa 0               sebenarnya mewakili nilai yang hilang (missing values), bukan pengukuran yang valid.
+
+           Sebelum Dihapus:
+          ![describe](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/describe.png)
+
+           Setelah Dihapus:
+         ![describe_after_drop](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/describe_after_drop.png)
+         
+  3) Persebaran Data (Boxplot)
+     Menggunakan library seaborn yaitu boxplot() untuk melihat persebaran data dan untuk melihat outlier dari setiap fitur, berikut beberapa visualisasi yang dibuat:
+
+       - Glucose
+         ![boxplot_glucose](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/boxplot_glucose.png)
+         
+       - BMI
+         ![boxplot_bmi](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/boxplot_BMI.png)
+         
+       - Insulin
+         ![boxplot_insulin](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/boxplot_insulin.png)
+  
+  4) Visualisasi Distribusi Fitur
+     Visualisasi ini memungkinkan kita melihat bentuk distribusi masing-masing fitur (misalnya, apakah terdistribusi normal, skewed, atau multimodal). Ini juga membantu          mengidentifikasi outlier atau anomali yang mungkin belum terdeteksi. Setelah imputasi, histogram juga menunjukkan bagaimana distribusi berubah setelah nilai nol diisi.
+     
+     ![histogram](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/histogram.png)
+
+  5) Visualisasi Hubungan Fitur dengan Target (Box Plots)
+     Box plot sangat efektif untuk membandingkan distribusi suatu fitur antara dua kelompok (diabetes vs. non-diabetes). Kita dapat melihat apakah ada perbedaan median,          rentang interkuartil, dan keberadaan outlier yang berbeda antara kedua kelas. Ini membantu mengidentifikasi fitur mana yang paling diskriminatif atau memiliki kekuatan      prediktif tinggi terhadap diabetes. Misalnya, Glucose dan BMI kemungkinan besar akan menunjukkan perbedaan distribusi yang signifikan antara kelompok sehat dan              diabetes.
+
+     ![korelasi_plot](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/korelasi_plot.png)
+
+  6) Analisis Korelasi
+     Matriks korelasi menunjukkan kekuatan dan arah hubungan linear antara setiap pasangan fitur.
+
+     ![matrix_korelasi](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/matrix%20korelasi.png)
+     
 ## Modeling
 Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
 
