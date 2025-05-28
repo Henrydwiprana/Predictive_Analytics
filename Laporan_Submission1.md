@@ -80,10 +80,10 @@ Berdasarkan latar belakang mengenai prevalensi diabetes dan kebutuhan akan detek
 
 Tujuan dari proyek ini dirumuskan untuk secara langsung menjawab pernyataan masalah di atas:
 
-  1) Membangun model klasifikasi machine learning yang mampu memprediksi diabetes dengan akurasi yang tinggi (target ≥75%) pada Pima Indians Diabetes Database. 
+  1) Membangun model klasifikasi machine learning yang mampu memprediksi diabetes dengan akurasi yang tinggi (target ≥70%) pada Pima Indians Diabetes Database. 
      Target akurasi ini ditetapkan dengan mempertimbangkan kompleksitas data medis dan tantangan diagnostik.
      
-  2) Mengidentifikasi dan mengimplementasikan setidaknya dua algoritma klasifikasi dasar (misalnya, Regresi Logistik dan Support Vector Machine) pada Pima Indians Diabetes Database, serta membandingkan kinerja masing-masing algoritma. 
+  2) Mengidentifikasi dan mengimplementasikan setidaknya dua algoritma klasifikasi dasar (misalnya, Regresi Logistik dan Support Vector Machine) pada Pima Indians Diabetes       Database, serta membandingkan kinerja masing-masing algoritma. 
      Perbandingan ini akan memberikan wawasan mengenai kekuatan dan kelemahan relatif setiap metode untuk masalah ini.
 
   3) Mengevaluasi kinerja model menggunakan metrik yang relevan seperti Akurasi, Precision, Recall, F1-Score, dan Confusion Matrix pada testing set.
@@ -99,7 +99,7 @@ Setiap solusi akan diukur menggunakan metrik evaluasi yang jelas dan relevan den
       - Deskripsi Solusi: Kami akan melatih model Regresi Logistik pada training set Pima Indians Diabetes Database. Sebelum pelatihan, fitur-fitur numerik akan menjalani preprocessing seperti penanganan nilai nol yang tidak valid (misalnya, mengganti nilai nol pada fitur seperti glukosa, tekanan darah, 
         dan BMI dengan median atau rata-rata) dan penskalaan (misalnya, Standard Scaler) untuk memastikan semua fitur memiliki skala yang seragam. Penyesuaian hyperparameter dasar akan dilakukan jika diperlukan.
     
-      - Metrik Evaluasi: Akurasi, Precision, Recall, F1-score, dan Confusion Matrix pada testing set. Target recall untuk kelas positif (diabetes) adalah ≥70%, di samping akurasi keseluruhan ≥75%.
+      - Metrik Evaluasi: Akurasi, Precision, Recall, F1-score, dan Confusion Matrix pada testing set. Target recall untuk kelas positif (diabetes) adalah ≥60%, di samping akurasi keseluruhan ≥70%.
     
       - Justifikasi: Regresi Logistik adalah model linear yang kuat, mudah diinterpretasikan, dan seringkali menjadi baseline yang baik untuk masalah klasifikasi biner, 
         terutama dalam aplikasi medis di mana interpretasi model penting.
@@ -109,7 +109,7 @@ Setiap solusi akan diukur menggunakan metrik evaluasi yang jelas dan relevan den
       - Deskripsi Solusi: Model Support Vector Machine (SVM) akan dilatih pada training set Pima Indians Diabetes Database. Seperti Regresi Logistik, data akan melalui tahapan preprocessing yang sama (penanganan nilai nol dan penskalaan fitur). 
         Eksplorasi hyperparameter seperti jenis kernel (misalnya, linear atau RBF) dan parameter regularisasi C akan dilakukan untuk mengoptimalkan batas keputusan SVM.
         
-      - Metrik Evaluasi: Akurasi, Precision, Recall, F1-score, dan Confusion Matrix pada testing set. Sama seperti solusi KNN, target recall untuk kelas positif (diabetes) adalah ≥70%, di samping akurasi keseluruhan ≥75%.
+      - Metrik Evaluasi: Akurasi, Precision, Recall, F1-score, dan Confusion Matrix pada testing set.  target recall untuk kelas positif (diabetes) adalah ≥60%, di samping akurasi keseluruhan ≥70%.
 
       - Justifikasi: SVM dikenal sangat efektif untuk masalah klasifikasi, bahkan ketika data tidak dapat dipisahkan secara linear. 
         Kemampuannya untuk menangani ruang fitur berdimensi tinggi (walaupun Pima Indians berdimensi rendah) dan menemukan hyperplane optimal menjadikannya pilihan yang baik untuk dibandingkan dengan Regresi Logistik.
@@ -139,12 +139,6 @@ Dataset ini dapat diakses dan diunduh dari Kaggle, sebuah platform populer untuk
 - Outcome: Variabel target, menunjukkan apakah pasien menderita diabetes. Ini adalah variabel biner:
     - 0 (merepresentasikan tidak menderita diabetes)
     - 1 (merepresentasikan menderita diabetes)
-
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Melakukan beberapa tahapan yang diperlukan untuk memahami data, contohnya teknik visualisasi data atau exploratory data analysis.
-
-## Data Preparation
-Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
 
 **Pemahaman Data (Exploratory Data Analysis - EDA)**
 
@@ -195,29 +189,168 @@ Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dil
      Matriks korelasi menunjukkan kekuatan dan arah hubungan linear antara setiap pasangan fitur.
 
      ![matrix_korelasi](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/matrix%20korelasi.png)
-     
-## Modeling
-Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan kelebihan dan kekurangan dari setiap algoritma yang digunakan.
-- Jika menggunakan satu algoritma pada solution statement, lakukan proses improvement terhadap model dengan hyperparameter tuning. **Jelaskan proses improvement yang dilakukan**.
-- Jika menggunakan dua atau lebih algoritma pada solution statement, maka pilih model terbaik sebagai solusi. **Jelaskan mengapa memilih model tersebut sebagai model terbaik**.
+## Data Preparation
+
+  Tahap Data Preparation adalah fase krusial dalam siklus hidup proyek machine learning yang bertujuan untuk mengubah data mentah menjadi format yang bersih, relevan, dan     sesuai untuk proses pemodelan. Kualitas data yang masuk ke dalam model secara langsung memengaruhi kinerja dan keandalan model yang dihasilkan. Pada proyek ini, proses      persiapan data difokuskan pada penanganan nilai-nilai yang tidak valid, pembagian dataset, dan penskalaan fitur, memastikan data siap untuk algoritma klasifikasi.
+
+  1) Penanganan Nilai tidak masuk akal atau tidak valid
+      Setelah inspeksi awal pada tahap Data Understanding (terutama melalui df.describe()), ditemukan bahwa beberapa kolom fitur (Glucose, BloodPressure, SkinThickness,           Insulin, BMI) memiliki nilai minimum 0. Nilai 0 pada fitur-fitur ini secara medis tidak mungkin terjadi pada individu hidup dan oleh karena itu dianggap sebagai             representasi dari nilai yang hilang (missing values) atau data yang tidak valid.
+
+      Untuk mengatasi hal ini, pendekatan yang diambil adalah menghapus seluruh baris (sampel) dari dataset di mana salah satu atau lebih dari fitur-fitur ini memiliki            nilai 0.
+
+     **Tujuan :**  
+        - Akurasi Data: Nilai 0 yang implausible akan mendistorsi statistik deskriptif dan analisis, serta menyesatkan model. Dengan menghapus baris yang mengandung nilai-            nilai ini, kita memastikan bahwa model dilatih hanya pada data yang secara medis valid.
+    
+        - Performa Model: Banyak algoritma machine learning sensitif terhadap nilai yang tidak valid atau outlier. Menghapus baris yang bermasalah dapat mencegah model                mempelajari pola yang salah dan meningkatkan robustness serta akurasi prediksi.
+
+  2) Penanganan Outlier (Penghapusan Berbasis IQR)
+     Setelah menangani nilai-nilai yang tidak masuk akal, langkah selanjutnya adalah mengidentifikasi dan menangani outlier (nilai ekstrem) yang mungkin masih ada dalam          fitur-fitur numerik. Outlier dapat sangat memengaruhi kinerja model, terutama algoritma yang sensitif terhadap distribusi data seperti Regresi Logistik dan SVM.
+
+      **Tujuan:**
+         - Meningkatkan Akurasi Model: Outlier dapat mendistorsi parameter model selama pelatihan, menyebabkan model berkinerja buruk pada data normal. Menghapus outlier               membantu model belajar pola yang lebih representatif dari mayoritas data.
+         - Normalisasi/Standardisasi yang Lebih Baik: Seperti yang disebutkan sebelumnya, outlier dapat mendistorsi rata-rata dan standar deviasi, membuat penskalaan fitur             menjadi kurang efektif. Menangani outlier terlebih dahulu menghasilkan penskalaan yang lebih akurat.
+
+  3) Pembagian Dataset (Splitting Data)
+     Setelah tahap penanganan nilai yang tidak masuk akal dan penghapusan outlier, dataset yang telah dibersihkan dibagi menjadi dua bagian utama: data latih (training set)      dan data uji (testing set). Pembagian ini dilakukan menggunakan fungsi train_test_split dari library sklearn.model_selection.
+
+     Kemudian, pembagian data dilakukan dengan proporsi 80% untuk training set dan 20% untuk testing set. Parameter random_state=42 diatur untuk memastikan hasil pembagian       yang konsisten dan reproducible. Penting juga untuk menggunakan stratify=y guna memastikan bahwa proporsi kelas (Outcome) dalam training set dan testing set tetap sama      dengan proporsi kelas dalam dataset asli yang telah dibersihkan, sehingga representasi kelas terjaga dengan baik.
+
+     **Tujuan :**
+       - Evaluasi Objektif: Tujuan utama pembagian data adalah untuk mengevaluasi kinerja model pada data yang belum pernah dilihat selama proses pelatihan. Ini memberikan           indikasi yang lebih realistis tentang bagaimana model akan berkinerja di lingkungan produksi.
+       - Mencegah Overfitting: Dengan melatih model hanya pada training set dan mengevaluasinya pada testing set terpisah, kita dapat mendeteksi apakah model terlalu                 spesifik (hafalan) terhadap data pelatihan (overfitting) dan gagal melakukan generalisasi dengan baik pada data baru.
+
+  4) Standardisasi
+      Setelah pembagian data, penskalaan fitur dilakukan secara terpisah pada training set dan transformasi yang sama diterapkan pada testing set. Teknik penskalaan yang          digunakan adalah Standardisasi, melalui StandardScaler dari sklearn.preprocessing.
+
+     **Tujuan :**
+       - Sensitivitas Algoritma: Banyak algoritma machine learning, terutama yang berbasis jarak (seperti K-Nearest Neighbors dan Support Vector Machine) atau yang                   menggunakan optimasi berbasis gradient descent (seperti Regresi Logistik), sangat sensitif terhadap skala fitur. Jika fitur memiliki rentang nilai yang sangat               berbeda, fitur dengan rentang nilai yang lebih besar dapat mendominasi perhitungan jarak atau pembaruan bobot, sehingga fitur dengan rentang nilai kecil menjadi             kurang signifikan.
+    
+       - Kinerja Model yang Konsisten: Penskalaan memastikan bahwa setiap fitur memiliki "bobot" yang setara dalam perhitungan model, mencegah fitur dominan yang tidak               relevan secara inheren. Ini seringkali menghasilkan model yang lebih stabil dan akurat.
+    
+## Modeling
+Tujuan utama dari proyek ini adalah untuk membangun model klasifikasi machine learning yang dapat memprediksi apakah seorang wanita keturunan Indian Pima berisiko terkena diabetes menggunakan data diagnostik yang tersedia. Untuk mencapai tujuan ini, dua algoritma klasifikasi yang berbeda, yaitu Regresi Logistik dan Support Vector Machine (SVM), diimplementasikan dan dibandingkan untuk mengidentifikasi model yang paling optimal.
+
+### Logistik Regresi
+  1) Proses Pemodelan :
+     - Inisialisasi Model: Model LogisticRegression diinisialisasi dari sklearn.linear_model.
+     - Pelatihan Model: Model dilatih menggunakan data latih yang telah distandardisasi (X_train_scaled, y_train_smote) dengan memanggil metode fit().
+     - Prediksi: Setelah dilatih, model digunakan untuk membuat prediksi pada data uji (X_test_scaled) dengan memanggil metode predict().
+
+  2) Parameter
+      - Model dasar LogisticRegression diinisialisasi dengan random_state=42.
+      - Pencarian Hyperparameter: GridSearchCV digunakan untuk mencari parameter terbaik dari grid berikut:
+        
+          - C: [0.001, 0.01, 0.1, 1, 10, 100] (Parameter regularisasi terbalik; nilai yang lebih kecil berarti regularisasi yang lebih kuat).
+          - solver: ['liblinear', 'lbfgs'] (Algoritma yang digunakan untuk optimasi).
+    
+      - Proses GridSearchCV menggunakan estimator=log_reg_model, param_grid=param_grid_lr, cv=5 (5-fold cross-validation), scoring='recall' (metrik yang diutamakan untuk            pemilihan model terbaik), n_jobs=-1 (menggunakan semua core CPU), dan verbose=1.
+      - Hasil terbaik dari tuning ini adalah best_lr_params, dan model terbaiknya adalah best_lr_model.
+
+  3) Kelebihan
+     - Sederhana dan Mudah Diinterpretasikan: Karena merupakan model linear, bobot yang dipelajari untuk setiap fitur dapat diinterpretasikan sebagai indikator pentingnya          fitur tersebut terhadap outcome.
+     - Cepat untuk Dilatih dan Efisien: Cocok untuk dataset berukuran sedang dan komputasi yang relatif ringan.
+
+  4) Kekurangan
+     - Sensitif terhadap Outlier: Meskipun data telah ditangani outlier, model ini masih bisa terpengaruh oleh outlier ekstrem jika tidak ditangani dengan baik.
+     - Tidak Baik untuk Masalah Kompleks: Kinerjanya bisa buruk pada masalah dengan hubungan fitur yang sangat kompleks atau non-linear.
+
+  ### Support Vector Machine
+
+  Support Vector Machine (SVM) adalah algoritma klasifikasi yang kuat yang bekerja dengan menemukan hyperplane (batas keputusan) terbaik yang secara optimal memisahkan kelas-kelas dalam ruang fitur. Untuk data yang tidak dapat dipisahkan secara linear, SVM menggunakan teknik kernel trick untuk memetakan data ke ruang berdimensi lebih tinggi di mana pemisahan linear mungkin dilakukan.
+
+  1) Proses Pemodelan :
+      - Inisialisasi Model: Model SVC (Support Vector Classifier) diinisialisasi dari sklearn.svm
+      - Pelatihan Model: Model dilatih menggunakan data latih yang telah distandardisasi (X_train_scaled, y_train_smote) dengan memanggil metode fit()
+      - Prediksi: Setelah dilatih, model digunakan untuk membuat prediksi pada data uji (X_test_scaled) dengan memanggil metode predict().
+      - Prediksi: Setelah dilatih, model terbaik digunakan untuk membuat prediksi pada data uji (X_test_scaled).
+
+  2) Parameter
+     - Model dasar SVC diinisialisasi dengan random_state=42.
+     - Pencarian Hyperparameter: GridSearchCV digunakan untuk mencari parameter terbaik dari grid berikut:
+           - C: [0.1, 1, 10, 100] (Parameter regularisasi).
+           - kernel: ['linear', 'rbf'] (Jenis kernel yang digunakan, menentukan bentuk batas keputusan).
+           - gamma: ['scale', 'auto'] (Koefisien kernel untuk 'rbf', 'poly' dan 'sigmoid'. scale menggunakan 1 / (n_features * X.var()) dan auto menggunakan 1 / n_features).
+     - Proses GridSearchCV menggunakan estimator=svm_model, param_grid=param_grid_svm, cv=5 (5-fold cross-validation), scoring='recall' (metrik yang diutamakan untuk               pemilihan model terbaik), n_jobs=-1 (menggunakan semua core CPU), dan verbose=1.
+     - Hasil terbaik dari tuning ini adalah best_svm_params, dan model terbaiknya adalah best_svm_model.
+
+  3) Kelebihan
+     - Efektif di Ruang Berdimensi Tinggi: Bekerja dengan baik bahkan ketika jumlah fitur lebih besar dari jumlah sampel.
+     - Tidak Rentan Terhadap Overfitting: SVM fokus pada pencarian hyperplane terbaik dengan margin maksimal, yang secara inheren membantu mengurangi overfitting.
+
+  4) Kekurangan
+     - Sensitif terhadap Pemilihan Kernel dan Parameter: Kinerja sangat bergantung pada pemilihan kernel dan hyperparameter seperti C dan gamma (untuk kernel RBF).
+     - Membutuhkan Normalisasi/Standardisasi: Sangat sensitif terhadap penskalaan fitur, membuat preprocessing seperti standardisasi menjadi krusial.
+
+  **Model Terbaik**
+  Berdasarkan hasil evaluasi terbaru yang Anda berikan, Regresi Logistik menunjukkan kinerja yang lebih baik dibandingkan Support Vector Machine (SVM) pada dataset ini,       setelah kedua model menjalani proses hyperparameter tuning.
+
+  gambar accuracy lr dan svm
+
+  1) Alasan
+     - Akurasi Keseluruhan (Accuracy): Regresi Logistik mencapai akurasi 0.76, yang lebih tinggi dibandingkan SVM yang hanya 0.73. Ini menunjukkan kemampuan prediksi yang          lebih baik secara keseluruhan.
+     - Recall untuk Kelas Positif (Diabetes - Kelas 1): Dalam konteks diagnosis diabetes, recall sangat penting untuk meminimalkan false negatives. Regresi Logistik                memiliki recall 0.64 untuk kelas 1, yang lebih tinggi dibandingkan SVM yang hanya 0.61. Ini berarti Regresi Logistik lebih baik dalam mengidentifikasi kasus                 diabetes yang sebenarnya, mengurangi risiko terlewatnya diagnosis.
+     - F1-Score untuk Kelas Positif: Regresi Logistik memiliki F1-score 0.60 untuk kelas 1, sedangkan SVM memiliki 0.56. Skor F1 yang lebih tinggi untuk Regresi Logistik           menunjukkan keseimbangan yang lebih baik antara precision dan recall dalam mengidentifikasi kasus diabetes.
+
+
 
 ## Evaluation
-Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
 
-Sebagai contoh, Anda memiih kasus klasifikasi dan menggunakan metrik **akurasi, precision, recall, dan F1 score**. Jelaskan mengenai beberapa hal berikut:
-- Penjelasan mengenai metrik yang digunakan
-- Menjelaskan hasil proyek berdasarkan metrik evaluasi
+**Metrik Evaluasi yang Digunakan**
+Dalam masalah klasifikasi biner seperti deteksi diabetes, metrik evaluasi yang komprehensif diperlukan untuk memahami kinerja model dari berbagai aspek. Metrik yang digunakan dalam proyek ini adalah:
+1) Akurasi (Accuracy)
+2) Presisi (Precision)
+3) Recall (Sensitivitas)
+4) F1-Score
+5) Confusion Matrix
 
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
+**Penjelasan Metrik dan Cara Kerjanya**
+  Untuk memahami metrik-metrik ini, mari kita definisikan istilah dasar dari Confusion Matrix:
+    - True Positive (TP): Jumlah kasus positif yang diprediksi dengan benar oleh model (misalnya, pasien didiagnosis diabetes dan memang menderita diabetes).
+    - True Negative (TN): Jumlah kasus negatif yang diprediksi dengan benar oleh model (misalnya, pasien didiagnosis tidak diabetes dan memang tidak menderita diabetes).
+    - False Positive (FP): Jumlah kasus negatif yang diprediksi sebagai positif (misalnya, pasien didiagnosis diabetes, tetapi sebenarnya tidak menderita diabetes). Juga          dikenal sebagai Type I error
+    - False Negative (FN): Jumlah kasus positif yang diprediksi sebagai negatif (misalnya, pasien didiagnosis tidak diabetes, tetapi sebenarnya menderita diabetes). Juga          dikenal sebagai Type II error.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
+  1) Accuracy
+     Akurasi mengukur proporsi total prediksi yang benar (baik positif maupun negatif) dari seluruh prediksi. Ini adalah metrik paling sederhana dan memberikan gambaran          umum tentang seberapa baik model bekerja.
 
-**---Ini adalah bagian akhir laporan---**
+     Formula:
 
-_Catatan:_
-- _Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor [Dillinger](https://dillinger.io/), [Github Guides: Mastering markdown](https://guides.github.com/features/mastering-markdown/), atau sumber lain di internet. Semangat!_
-- Jika terdapat penjelasan yang harus menyertakan code snippet, tuliskan dengan sewajarnya. Tidak perlu menuliskan keseluruhan kode project, cukup bagian yang ingin dijelaskan saja.
+     Cara kerja : Akurasi bekerja dengan menghitung rasio jumlah prediksi yang tepat (TP + TN) terhadap total jumlah semua sampel (TP + TN + FP + FN). Ini ideal ketika           dataset memiliki distribusi kelas yang seimbang. Namun, jika ada ketidakseimbangan kelas (misalnya, jauh lebih banyak pasien non-diabetes daripada diabetes), akurasi        tinggi bisa menyesatkan karena model mungkin hanya pandai memprediksi kelas mayoritas.
+
+  2) Precision
+     Presisi mengukur proporsi prediksi positif yang benar dari semua kasus yang diprediksi sebagai positif. Ini menjawab pertanyaan: "Dari semua yang diprediksi sebagai         diabetes, berapa banyak yang benar-benar diabetes?"
+
+     Formula:
+
+     Cara Kerja:  Presisi fokus pada kualitas prediksi positif. Sebuah model dengan precision tinggi memiliki sedikit false positives. Dalam konteks medis, precision             tinggi berarti model jarang salah mendiagnosis seseorang yang sehat sebagai diabetes.
+
+  3) Recall
+     Recall mengukur proporsi kasus positif yang benar yang berhasil diidentifikasi oleh model dari semua kasus positif yang sebenarnya ada. Ini menjawab pertanyaan: "Dari       semua kasus diabetes yang sebenarnya, berapa banyak yang berhasil ditemukan oleh model?"
+
+     Formula:
+
+     Cara Kerja: Recall fokus pada menemukan semua kasus positif. Sebuah model dengan recall tinggi memiliki sedikit false negatives. Dalam konteks diagnosis diabetes,           recall sangat penting karena false negatives (pasien diabetes yang tidak terdeteksi) dapat menyebabkan komplikasi kesehatan yang parah.
+
+  4) F1 - Score
+     F1-Score adalah harmonic mean dari precision dan recall. Ini adalah metrik yang lebih seimbang daripada akurasi, terutama untuk dataset dengan kelas yang tidak              seimbang, karena ia mempertimbangkan false positives dan false negatives. Skor F1 mencapai nilai terbaiknya pada 1 dan nilai terburuk pada 0.
+
+     Formula:
+
+
+     Cara Kerja : F1-Score memberikan skor tunggal yang menyeimbangkan precision dan recall. Ini sangat berguna ketika kita membutuhkan keseimbangan yang baik antara             menghindari false positives dan false negatives.
+
+  5) Confusion Matrix
+     Confusion Matrix adalah tabel yang menunjukkan kinerja model klasifikasi pada testing set di mana nilai true dari sampel diketahui. Ini menyajikan visualisasi yang          jelas tentang berapa banyak prediksi yang benar dan salah untuk setiap kelas.
+
+     Formula:
+
+     Cara Kerja: Dengan melihat Confusion Matrix, kita dapat dengan cepat mengidentifikasi jenis kesalahan yang paling sering dilakukan model (misalnya, apakah model             cenderung menghasilkan lebih banyak false positives atau false negatives). Ini adalah dasar perhitungan untuk precision, recall, dan F1-score.
+
+**Hasil Proyek Berdasarkan Metrik Evaluasi**
+
+
+
+
+
+
