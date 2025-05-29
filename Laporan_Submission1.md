@@ -348,6 +348,44 @@ Dalam masalah klasifikasi biner seperti deteksi diabetes, metrik evaluasi yang k
      Cara Kerja: Dengan melihat Confusion Matrix, kita dapat dengan cepat mengidentifikasi jenis kesalahan yang paling sering dilakukan model (misalnya, apakah model             cenderung menghasilkan lebih banyak false positives atau false negatives). Ini adalah dasar perhitungan untuk precision, recall, dan F1-score.
 
 **Hasil Proyek Berdasarkan Metrik Evaluasi**
+Berdasarkan analisis Classification Report dan Confusion Matrix dari kedua model pada testing set (dengan 71 kasus non-diabetes (kelas 0) dan 28 kasus diabetes (kelas 1)):
+
+### Regresi Logistik
+  Gambar 
+
+  1) Confusion Matrix
+     - TP: 18 (pasien diabetes diprediksi diabetes)
+     - TN: 57 (pasien non-diabetes diprediksi non-diabetes)
+     - FP: 14 (pasien non-diabetes diprediksi diabetes - Type I error)
+     - FN: 10 (pasien diabetes diprediksi non-diabetes - Type II error)
+
+  2) Interpretasi Hasil:
+     - Akurasi (0.76): Model secara keseluruhan memprediksi dengan benar 76% dari waktu.
+     - Presisi Kelas 0 (Non-diabetes) (0.85): Ketika model memprediksi seseorang tidak menderita diabetes, 85% di antaranya benar.
+     - Recall Kelas 0 (Non-diabetes) (0.80): Model berhasil mengidentifikasi 80% dari semua kasus non-diabetes yang sebenarnya.
+     - Presisi Kelas 1 (Diabetes) (0.56): Dari semua pasien yang diprediksi menderita diabetes, 56% yang benar-benar menderita diabetes. Ini menunjukkan peningkatan yang           baik dibandingkan hasil sebelumnya.
+     - Recall Kelas 1 (Diabetes) (0.64): Model berhasil mengidentifikasi 64% dari semua pasien diabetes yang sebenarnya. Ini adalah peningkatan signifikan dan memenuhi             target recall ≥60% yang ditetapkan. Ini berarti model ini lebih baik dalam menemukan kasus diabetes yang sebenarnya.
+     - F1-Score Kelas 1 (Diabetes) (0.60): Skor F1 yang lebih tinggi ini mengindikasikan bahwa model memiliki kinerja yang lebih seimbang dalam mengidentifikasi kelas              diabetes dibandingkan sebelumnya, karena recall dan precision yang lebih baik.
+
+### Support Vector Machine
+   Gambar
+
+   1) Confnusion Matrix:
+      - TP: 17 (pasien diabetes diprediksi diabetes)
+        TN: 55 (pasien non-diabetes diprediksi non-diabetes)
+        FP: 16 (pasien non-diabetes diprediksi diabetes - Type I error)
+        FN: 11 (pasien diabetes diprediksi non-diabetes - Type II error)
+
+   2) Interpretasi Hasil:
+      - Akurasi (0.73): Model SVM mencapai akurasi keseluruhan 73%.
+      - Presisi Kelas 0 (Non-diabetes) (0.83): Ketika model memprediksi seseorang tidak menderita diabetes, 83% di antaranya benar.
+      - Recall Kelas 0 (Non-diabetes) (0.77): Model berhasil mengidentifikasi 77% dari semua kasus non-diabetes yang sebenarnya.
+      - Presisi Kelas 1 (Diabetes) (0.52): Dari semua pasien yang diprediksi menderita diabetes, 52% yang benar-benar menderita diabetes.
+      - Recall Kelas 1 (Diabetes) (0.61): Model berhasil mengidentifikasi 61% dari semua pasien diabetes yang sebenarnya.
+      - F1-Score Kelas 1 (Diabetes) (0.56): F1-score ini menunjukkan keseimbangan antara precision dan recall untuk kelas diabetes.
+
+  Kesimpulan Evaluasi 
+    Berdasarkan metrik evaluasi yang terbaru, terutama recall dan F1-score untuk kelas positif (diabetes), serta pengurangan false negatives dan false positives, Regresi        Logistik adalah model terbaik untuk masalah klasifikasi diabetes ini. Kemampuannya untuk mengidentifikasi lebih banyak kasus diabetes yang sebenarnya (dengan recall         0.64) sambil juga meminimalkan false positives (dengan precision 0.56) membuatnya menjadi pilihan yang lebih unggul dibandingkan SVM dalam upaya deteksi dini penyakit       ini.
 
 
 
