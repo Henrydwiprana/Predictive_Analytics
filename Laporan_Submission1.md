@@ -96,26 +96,24 @@ Setiap solusi akan diukur menggunakan metrik evaluasi yang jelas dan relevan den
 
   1) Pembangunan Model Klasifikasi Diabetes dengan Algoritma Regresi Logistik :
 
-      - Deskripsi Solusi: Kami akan melatih model Regresi Logistik pada training set Pima Indians Diabetes Database. Sebelum pelatihan, fitur-fitur numerik akan menjalani preprocessing seperti penanganan nilai nol yang tidak valid (misalnya, mengganti nilai nol pada fitur seperti glukosa, tekanan darah, 
-        dan BMI dengan median atau rata-rata) dan penskalaan (misalnya, Standard Scaler) untuk memastikan semua fitur memiliki skala yang seragam. Penyesuaian hyperparameter dasar akan dilakukan jika diperlukan.
+      - Deskripsi Solusi:  melatih model Regresi Logistik pada training set Pima Indians Diabetes Database. Sebelum pelatihan, fitur-fitur numerik akan menjalani                    preprocessing seperti penanganan nilai nol yang tidak valid (misalnya, mengganti nilai nol pada fitur seperti glukosa, tekanan darah, 
+        dan BMI dengan median atau rata-rata) dan penskalaan (misalnya, Standard Scaler) untuk memastikan semua fitur memiliki skala yang seragam. Penyesuaian                       hyperparameter dasar akan dilakukan jika diperlukan.
     
-      - Metrik Evaluasi: Akurasi, Precision, Recall, F1-score, dan Confusion Matrix pada testing set. Target recall untuk kelas positif (diabetes) adalah ≥60%, di samping akurasi keseluruhan ≥70%.
+      - Metrik Evaluasi: Akurasi, Precision, Recall, F1-score, dan Confusion Matrix pada testing set. Target recall untuk kelas positif (diabetes) adalah ≥60%, di samping           akurasi keseluruhan ≥70%.
     
       - Justifikasi: Regresi Logistik adalah model linear yang kuat, mudah diinterpretasikan, dan seringkali menjadi baseline yang baik untuk masalah klasifikasi biner, 
         terutama dalam aplikasi medis di mana interpretasi model penting.
     
   2) Pembangunan Model Klasifikasi Diabetes dengan Algoritma Support Vector Machine (SVM):
 
-      - Deskripsi Solusi: Model Support Vector Machine (SVM) akan dilatih pada training set Pima Indians Diabetes Database. Seperti Regresi Logistik, data akan melalui tahapan preprocessing yang sama (penanganan nilai nol dan penskalaan fitur). 
-        Eksplorasi hyperparameter seperti jenis kernel (misalnya, linear atau RBF) dan parameter regularisasi C akan dilakukan untuk mengoptimalkan batas keputusan SVM.
+      - Deskripsi Solusi: Model Support Vector Machine (SVM) akan dilatih pada training set Pima Indians Diabetes Database. Seperti Regresi Logistik, data akan melalui              tahapan preprocessing yang sama (penanganan nilai nol dan penskalaan fitur). Eksplorasi hyperparameter seperti jenis kernel (misalnya, linear atau RBF) dan                  parameter regularisasi C akan dilakukan untuk mengoptimalkan batas keputusan SVM.
         
-      - Metrik Evaluasi: Akurasi, Precision, Recall, F1-score, dan Confusion Matrix pada testing set.  target recall untuk kelas positif (diabetes) adalah ≥60%, di samping akurasi keseluruhan ≥70%.
+      - Metrik Evaluasi: Akurasi, Precision, Recall, F1-score, dan Confusion Matrix pada testing set.  target recall untuk kelas positif (diabetes) adalah ≥60%, di samping           akurasi keseluruhan ≥70%.
 
       - Justifikasi: SVM dikenal sangat efektif untuk masalah klasifikasi, bahkan ketika data tidak dapat dipisahkan secara linear. 
-        Kemampuannya untuk menangani ruang fitur berdimensi tinggi (walaupun Pima Indians berdimensi rendah) dan menemukan hyperplane optimal menjadikannya pilihan yang baik untuk dibandingkan dengan Regresi Logistik.
+        Kemampuannya untuk menangani ruang fitur berdimensi tinggi (walaupun Pima Indians berdimensi rendah) dan menemukan hyperplane optimal menjadikannya pilihan yang             baik untuk dibandingkan dengan Regresi Logistik.
 
-Dengan mengimplementasikan dan membandingkan kedua solusi ini, proyek ini diharapkan dapat mengidentifikasi algoritma yang paling efektif untuk diagnosis dini diabetes pada Pima Indians Diabetes Database, 
-sekaligus memberikan analisis komprehensif tentang performa model yang diukur dengan metrik yang relevan secara klinis.
+Dengan mengimplementasikan dan membandingkan kedua solusi ini, proyek ini diharapkan dapat mengidentifikasi algoritma yang paling efektif untuk diagnosis dini diabetes pada Pima Indians Diabetes Database, sekaligus memberikan analisis komprehensif tentang performa model yang diukur dengan metrik yang relevan secara klinis.
 
 ## Data Understanding
 
@@ -157,38 +155,39 @@ Dataset ini dapat diakses dan diunduh dari Kaggle, sebuah platform populer untuk
 
          Seperti yang telah dibahas sebelumnya, observasi penting dari df.describe() adalah adanya nilai 0 pada kolom Glucose, BloodPressure, SkinThickness, Insulin, dan             BMI. Nilai nol untuk fitur-fitur ini secara medis tidak masuk akal (misalnya, tekanan darah nol atau BMI nol pada individu hidup). Ini mengindikasikan bahwa 0               sebenarnya mewakili nilai yang hilang (missing values), bukan pengukuran yang valid.
 
-           Sebelum Dihapus:
+      
           ![describe](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/describe.png)
 
-           Setelah Dihapus:
-         ![describe_after_drop](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/describe_after_drop.png)
          
   3) Persebaran Data (Boxplot)
      Menggunakan library seaborn yaitu boxplot() untuk melihat persebaran data dan untuk melihat outlier dari setiap fitur, berikut beberapa visualisasi yang dibuat:
 
        - Glucose
-         ![boxplot_glucose](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/boxplot_glucose.png)
+         
+         ![boxplot_glucose](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/glucose_boxplot.png)
          
        - BMI
-         ![boxplot_bmi](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/boxplot_BMI.png)
+         
+         ![boxplot_bmi](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/bmi_boxplot.png)
          
        - Insulin
-         ![boxplot_insulin](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/boxplot_insulin.png)
+         
+         ![boxplot_insulin](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/insulin_boxplot.png)
   
   4) Visualisasi Distribusi Fitur
      Visualisasi ini memungkinkan kita melihat bentuk distribusi masing-masing fitur (misalnya, apakah terdistribusi normal, skewed, atau multimodal). Ini juga membantu          mengidentifikasi outlier atau anomali yang mungkin belum terdeteksi. Setelah imputasi, histogram juga menunjukkan bagaimana distribusi berubah setelah nilai nol diisi.
      
-     ![histogram](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/histogram.png)
+     ![histogram](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/histogram_features.png)
 
   5) Visualisasi Hubungan Fitur dengan Target (Box Plots)
      Box plot sangat efektif untuk membandingkan distribusi suatu fitur antara dua kelompok (diabetes vs. non-diabetes). Kita dapat melihat apakah ada perbedaan median,          rentang interkuartil, dan keberadaan outlier yang berbeda antara kedua kelas. Ini membantu mengidentifikasi fitur mana yang paling diskriminatif atau memiliki kekuatan      prediktif tinggi terhadap diabetes. Misalnya, Glucose dan BMI kemungkinan besar akan menunjukkan perbedaan distribusi yang signifikan antara kelompok sehat dan              diabetes.
 
-     ![korelasi_plot](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/korelasi_plot.png)
+     ![korelasi_plot](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/pair_plot.png)
 
   6) Analisis Korelasi
      Matriks korelasi menunjukkan kekuatan dan arah hubungan linear antara setiap pasangan fitur.
 
-     ![matrix_korelasi](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/matrix%20korelasi.png)
+     ![matrix_korelasi](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/corr_matrix.png)
 
 ## Data Preparation
 
@@ -214,7 +213,7 @@ Dataset ini dapat diakses dan diunduh dari Kaggle, sebuah platform populer untuk
   3) Pembagian Dataset (Splitting Data)
      Setelah tahap penanganan nilai yang tidak masuk akal dan penghapusan outlier, dataset yang telah dibersihkan dibagi menjadi dua bagian utama: data latih (training set)      dan data uji (testing set). Pembagian ini dilakukan menggunakan fungsi train_test_split dari library sklearn.model_selection.
 
-     Kemudian, pembagian data dilakukan dengan proporsi 80% untuk training set dan 20% untuk testing set. Parameter random_state=42 diatur untuk memastikan hasil pembagian       yang konsisten dan reproducible. Penting juga untuk menggunakan stratify=y guna memastikan bahwa proporsi kelas (Outcome) dalam training set dan testing set tetap sama      dengan proporsi kelas dalam dataset asli yang telah dibersihkan, sehingga representasi kelas terjaga dengan baik.
+     Kemudian, pembagian data dilakukan dengan proporsi 70% untuk training set dan 30% untuk testing set. Parameter random_state=42 diatur untuk memastikan hasil pembagian       yang konsisten dan reproducible. Penting juga untuk menggunakan stratify=y guna memastikan bahwa proporsi kelas (Outcome) dalam training set dan testing set tetap sama      dengan proporsi kelas dalam dataset asli yang telah dibersihkan, sehingga representasi kelas terjaga dengan baik.
 
      **Tujuan :**
        - Evaluasi Objektif: Tujuan utama pembagian data adalah untuk mengevaluasi kinerja model pada data yang belum pernah dilihat selama proses pelatihan. Ini memberikan           indikasi yang lebih realistis tentang bagaimana model akan berkinerja di lingkungan produksi.
@@ -283,9 +282,7 @@ Tujuan utama dari proyek ini adalah untuk membangun model klasifikasi machine le
      - Membutuhkan Normalisasi/Standardisasi: Sangat sensitif terhadap penskalaan fitur, membuat preprocessing seperti standardisasi menjadi krusial.
 
   **Model Terbaik**
-  Berdasarkan hasil evaluasi terbaru yang Anda berikan, Regresi Logistik menunjukkan kinerja yang lebih baik dibandingkan Support Vector Machine (SVM) pada dataset ini,       setelah kedua model menjalani proses hyperparameter tuning.
-
-  gambar accuracy lr dan svm
+   Regresi Logistik menunjukkan kinerja yang lebih baik dibandingkan Support Vector Machine (SVM) pada dataset ini,setelah kedua model menjalani proses hyperparameter          tuning.
 
   1) Alasan
      - Akurasi Keseluruhan (Accuracy): Regresi Logistik mencapai akurasi 0.76, yang lebih tinggi dibandingkan SVM yang hanya 0.73. Ini menunjukkan kemampuan prediksi yang          lebih baik secara keseluruhan.
@@ -316,42 +313,54 @@ Dalam masalah klasifikasi biner seperti deteksi diabetes, metrik evaluasi yang k
 
      Formula:
 
+     ![accuracy_formula](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/accuracy_formula.png)
+     
      Cara kerja : Akurasi bekerja dengan menghitung rasio jumlah prediksi yang tepat (TP + TN) terhadap total jumlah semua sampel (TP + TN + FP + FN). Ini ideal ketika           dataset memiliki distribusi kelas yang seimbang. Namun, jika ada ketidakseimbangan kelas (misalnya, jauh lebih banyak pasien non-diabetes daripada diabetes), akurasi        tinggi bisa menyesatkan karena model mungkin hanya pandai memprediksi kelas mayoritas.
 
-  2) Precision
+  3) Precision
      Presisi mengukur proporsi prediksi positif yang benar dari semua kasus yang diprediksi sebagai positif. Ini menjawab pertanyaan: "Dari semua yang diprediksi sebagai         diabetes, berapa banyak yang benar-benar diabetes?"
 
      Formula:
 
+     ![Precision_formula](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/Precision_formula.png)
+
      Cara Kerja:  Presisi fokus pada kualitas prediksi positif. Sebuah model dengan precision tinggi memiliki sedikit false positives. Dalam konteks medis, precision             tinggi berarti model jarang salah mendiagnosis seseorang yang sehat sebagai diabetes.
 
-  3) Recall
+  5) Recall
      Recall mengukur proporsi kasus positif yang benar yang berhasil diidentifikasi oleh model dari semua kasus positif yang sebenarnya ada. Ini menjawab pertanyaan: "Dari       semua kasus diabetes yang sebenarnya, berapa banyak yang berhasil ditemukan oleh model?"
 
      Formula:
 
+     ![reacll_formula](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/recall_formula.png)
+
      Cara Kerja: Recall fokus pada menemukan semua kasus positif. Sebuah model dengan recall tinggi memiliki sedikit false negatives. Dalam konteks diagnosis diabetes,           recall sangat penting karena false negatives (pasien diabetes yang tidak terdeteksi) dapat menyebabkan komplikasi kesehatan yang parah.
 
-  4) F1 - Score
+  7) F1 - Score
      F1-Score adalah harmonic mean dari precision dan recall. Ini adalah metrik yang lebih seimbang daripada akurasi, terutama untuk dataset dengan kelas yang tidak              seimbang, karena ia mempertimbangkan false positives dan false negatives. Skor F1 mencapai nilai terbaiknya pada 1 dan nilai terburuk pada 0.
 
      Formula:
 
+     ![f1score_formula](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/f1score_formula.png)
+
 
      Cara Kerja : F1-Score memberikan skor tunggal yang menyeimbangkan precision dan recall. Ini sangat berguna ketika kita membutuhkan keseimbangan yang baik antara             menghindari false positives dan false negatives.
 
-  5) Confusion Matrix
+  9) Confusion Matrix
      Confusion Matrix adalah tabel yang menunjukkan kinerja model klasifikasi pada testing set di mana nilai true dari sampel diketahui. Ini menyajikan visualisasi yang          jelas tentang berapa banyak prediksi yang benar dan salah untuk setiap kelas.
 
      Formula:
 
+     ![confusion_formula](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/confusion_formula.png)
+
      Cara Kerja: Dengan melihat Confusion Matrix, kita dapat dengan cepat mengidentifikasi jenis kesalahan yang paling sering dilakukan model (misalnya, apakah model             cenderung menghasilkan lebih banyak false positives atau false negatives). Ini adalah dasar perhitungan untuk precision, recall, dan F1-score.
 
 **Hasil Proyek Berdasarkan Metrik Evaluasi**
+
 Berdasarkan analisis Classification Report dan Confusion Matrix dari kedua model pada testing set (dengan 71 kasus non-diabetes (kelas 0) dan 28 kasus diabetes (kelas 1)):
 
 ### Regresi Logistik
-  Gambar 
+
+  ![hasil_lr](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/hasil_lr.png)
 
   1) Confusion Matrix
      - TP: 18 (pasien diabetes diprediksi diabetes)
@@ -368,7 +377,8 @@ Berdasarkan analisis Classification Report dan Confusion Matrix dari kedua model
      - F1-Score Kelas 1 (Diabetes) (0.60): Skor F1 yang lebih tinggi ini mengindikasikan bahwa model memiliki kinerja yang lebih seimbang dalam mengidentifikasi kelas              diabetes dibandingkan sebelumnya, karena recall dan precision yang lebih baik.
 
 ### Support Vector Machine
-   Gambar
+
+  ![hasil_svm](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/hasil_svm.png)
 
    1) Confnusion Matrix:
       - TP: 17 (pasien diabetes diprediksi diabetes)
