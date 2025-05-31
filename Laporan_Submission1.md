@@ -143,7 +143,9 @@ Dataset ini dapat diakses dan diunduh dari Kaggle, sebuah platform populer untuk
   1) Pemuatan Data dan Inspeksi Awal
        - df.head(): Menampilkan beberapa baris pertama dari dataset. Ini memberikan gambaran cepat tentang bagaimana data terstruktur, nama-nama kolom, dan jenis nilai yang terkandung di dalamnya.
          
-         ![head](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/head.png)
+     
+         ![head](https://github.com/user-attachments/assets/d9daa626-ed1c-43bc-904a-d176be953a25)
+
          
        - df.info(): Menyediakan ringkasan singkat tentang DataFrame, termasuk jumlah entri, jumlah kolom, tipe data masing-masing kolom (misalnya, int64, float64), dan keberadaan nilai non-null. Ini membantu dalam mengidentifikasi apakah ada kolom dengan nilai yang hilang secara eksplisit (NaN) pada tahap awal
 
