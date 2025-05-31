@@ -191,46 +191,73 @@ Dataset ini dapat diakses dan diunduh dari Kaggle, sebuah platform populer untuk
 
 ## Data Preparation
 
-  Tahap Data Preparation adalah fase krusial dalam siklus hidup proyek machine learning yang bertujuan untuk mengubah data mentah menjadi format yang bersih, relevan, dan     sesuai untuk proses pemodelan. Kualitas data yang masuk ke dalam model secara langsung memengaruhi kinerja dan keandalan model yang dihasilkan. Pada proyek ini, proses      persiapan data difokuskan pada penanganan nilai-nilai yang tidak valid, pembagian dataset, dan penskalaan fitur, memastikan data siap untuk algoritma klasifikasi.
+  Tahap Data Preparation adalah fase krusial dalam siklus hidup proyek machine learning yang bertujuan untuk mengubah data mentah menjadi format yang bersih, relevan, dan sesuai untuk proses pemodelan. Kualitas data yang masuk ke dalam model secara langsung memengaruhi kinerja dan keandalan model yang dihasilkan. Pada proyek ini, proses persiapan data difokuskan pada penanganan nilai-nilai yang tidak valid, penanganan outlier, pembagian dataset, penanganan ketidakseimbangan kelas (dengan SMOTE), dan penskalaan fitur, memastikan data siap untuk algoritma klasifikasi.
 
   1) Penanganan Nilai tidak masuk akal atau tidak valid
-      Setelah inspeksi awal pada tahap Data Understanding (terutama melalui df.describe()), ditemukan bahwa beberapa kolom fitur (Glucose, BloodPressure, SkinThickness,           Insulin, BMI) memiliki nilai minimum 0. Nilai 0 pada fitur-fitur ini secara medis tidak mungkin terjadi pada individu hidup dan oleh karena itu dianggap sebagai             representasi dari nilai yang hilang (missing values) atau data yang tidak valid.
+      Setelah inspeksi awal pada tahap Data Understanding (terutama melalui df.describe()), ditemukan bahwa beberapa kolom fitur (Glucose, BloodPressure, SkinThickness,Insulin, BMI) memiliki nilai minimum 0. Nilai 0 pada fitur-fitur ini secara medis tidak mungkin terjadi pada individu hidup dan oleh karena itu dianggap sebagai representasi dari nilai yang hilang (missing values) atau data yang tidak valid.
 
-      Untuk mengatasi hal ini, pendekatan yang diambil adalah menghapus seluruh baris (sampel) dari dataset di mana salah satu atau lebih dari fitur-fitur ini memiliki            nilai 0.
+      Untuk mengatasi hal ini, pendekatan yang diambil adalah menghapus seluruh baris (sampel) dari dataset di mana salah satu atau lebih dari fitur-fitur ini memiliki nilai 0.
 
      **Tujuan :**  
         - Akurasi Data: Nilai 0 yang implausible akan mendistorsi statistik deskriptif dan analisis, serta menyesatkan model. Dengan menghapus baris yang mengandung nilai-            nilai ini, kita memastikan bahwa model dilatih hanya pada data yang secara medis valid.
     
-        - Performa Model: Banyak algoritma machine learning sensitif terhadap nilai yang tidak valid atau outlier. Menghapus baris yang bermasalah dapat mencegah model                mempelajari pola yang salah dan meningkatkan robustness serta akurasi prediksi.
+        - Performa Model: Banyak algoritma machine learning sensitif terhadap nilai yang tidak valid atau outlier. Menghapus baris yang bermasalah dapat mencegah model mempelajari pola yang salah dan meningkatkan robustness serta akurasi prediksi.
 
   2) Penanganan Outlier (Penghapusan Berbasis IQR)
-     Setelah menangani nilai-nilai yang tidak masuk akal, langkah selanjutnya adalah mengidentifikasi dan menangani outlier (nilai ekstrem) yang mungkin masih ada dalam          fitur-fitur numerik. Outlier dapat sangat memengaruhi kinerja model, terutama algoritma yang sensitif terhadap distribusi data seperti Regresi Logistik dan SVM.
+     Setelah menangani nilai-nilai yang tidak masuk akal, langkah selanjutnya adalah mengidentifikasi dan menangani outlier (nilai ekstrem) yang mungkin masih ada dalam fitur-fitur numerik. Outlier dapat sangat memengaruhi kinerja model, terutama algoritma yang sensitif terhadap distribusi data seperti Regresi Logistik dan SVM.
 
       **Tujuan:**
-         - Meningkatkan Akurasi Model: Outlier dapat mendistorsi parameter model selama pelatihan, menyebabkan model berkinerja buruk pada data normal. Menghapus outlier               membantu model belajar pola yang lebih representatif dari mayoritas data.
-         - Normalisasi/Standardisasi yang Lebih Baik: Seperti yang disebutkan sebelumnya, outlier dapat mendistorsi rata-rata dan standar deviasi, membuat penskalaan fitur             menjadi kurang efektif. Menangani outlier terlebih dahulu menghasilkan penskalaan yang lebih akurat.
+         - Meningkatkan Akurasi Model: Outlier dapat mendistorsi parameter model selama pelatihan, menyebabkan model berkinerja buruk pada data normal. Menghapus outlier membantu model belajar pola yang lebih representatif dari mayoritas data.
+         - Normalisasi/Standardisasi yang Lebih Baik: Seperti yang disebutkan sebelumnya, outlier dapat mendistorsi rata-rata dan standar deviasi, membuat penskalaan fitur menjadi kurang efektif. Menangani outlier terlebih dahulu menghasilkan penskalaan yang lebih akurat.
 
   3) Pembagian Dataset (Splitting Data)
-     Setelah tahap penanganan nilai yang tidak masuk akal dan penghapusan outlier, dataset yang telah dibersihkan dibagi menjadi dua bagian utama: data latih (training set)      dan data uji (testing set). Pembagian ini dilakukan menggunakan fungsi train_test_split dari library sklearn.model_selection.
+     Setelah tahap penanganan nilai yang tidak masuk akal dan penghapusan outlier, dataset yang telah dibersihkan dibagi menjadi dua bagian utama: data latih (training set) dan data uji (testing set). Pembagian ini dilakukan menggunakan fungsi train_test_split dari library sklearn.model_selection.
 
-     Kemudian, pembagian data dilakukan dengan proporsi 70% untuk training set dan 30% untuk testing set. Parameter random_state=42 diatur untuk memastikan hasil pembagian       yang konsisten dan reproducible. Penting juga untuk menggunakan stratify=y guna memastikan bahwa proporsi kelas (Outcome) dalam training set dan testing set tetap sama      dengan proporsi kelas dalam dataset asli yang telah dibersihkan, sehingga representasi kelas terjaga dengan baik.
-
-     **Tujuan :**
-       - Evaluasi Objektif: Tujuan utama pembagian data adalah untuk mengevaluasi kinerja model pada data yang belum pernah dilihat selama proses pelatihan. Ini memberikan           indikasi yang lebih realistis tentang bagaimana model akan berkinerja di lingkungan produksi.
-       - Mencegah Overfitting: Dengan melatih model hanya pada training set dan mengevaluasinya pada testing set terpisah, kita dapat mendeteksi apakah model terlalu                 spesifik (hafalan) terhadap data pelatihan (overfitting) dan gagal melakukan generalisasi dengan baik pada data baru.
-
-  4) Standardisasi
-      Setelah pembagian data, penskalaan fitur dilakukan secara terpisah pada training set dan transformasi yang sama diterapkan pada testing set. Teknik penskalaan yang          digunakan adalah Standardisasi, melalui StandardScaler dari sklearn.preprocessing.
+     Kemudian, pembagian data dilakukan dengan proporsi 70% untuk training set dan 30% untuk testing set. Parameter random_state=42 diatur untuk memastikan hasil pembagian yang konsisten dan reproducible. Penting juga untuk menggunakan stratify=y guna memastikan bahwa proporsi kelas (Outcome) dalam training set dan testing set tetap sama dengan proporsi kelas dalam dataset asli yang telah dibersihkan, sehingga representasi kelas terjaga dengan baik.
 
      **Tujuan :**
-       - Sensitivitas Algoritma: Banyak algoritma machine learning, terutama yang berbasis jarak (seperti K-Nearest Neighbors dan Support Vector Machine) atau yang                   menggunakan optimasi berbasis gradient descent (seperti Regresi Logistik), sangat sensitif terhadap skala fitur. Jika fitur memiliki rentang nilai yang sangat               berbeda, fitur dengan rentang nilai yang lebih besar dapat mendominasi perhitungan jarak atau pembaruan bobot, sehingga fitur dengan rentang nilai kecil menjadi             kurang signifikan.
+       - Evaluasi Objektif: Tujuan utama pembagian data adalah untuk mengevaluasi kinerja model pada data yang belum pernah dilihat selama proses pelatihan. Ini memberikan indikasi yang lebih realistis tentang bagaimana model akan berkinerja di lingkungan produksi.
+       - Mencegah Overfitting: Dengan melatih model hanya pada training set dan mengevaluasinya pada testing set terpisah, kita dapat mendeteksi apakah model terlalu spesifik (hafalan) terhadap data pelatihan (overfitting) dan gagal melakukan generalisasi dengan baik pada data baru.
+
+  4) SMOTE
+       Pada dataset prediksi diabetes, seringkali ditemukan adanya ketidakseimbangan kelas (class imbalance), di mana jumlah sampel dari kelas minoritas (misalnya, pasien diabetes) jauh lebih sedikit dibandingkan kelas mayoritas (non-diabetes). Jika tidak ditangani, model cenderung bias terhadap kelas mayoritas dan kurang baik dalam memprediksi kelas minoritas.
+
+Untuk mengatasi hal ini, teknik Synthetic Minority Over-sampling Technique (SMOTE) diterapkan pada data latih (X_train, y_train) setelah pembagian data. SMOTE bekerja dengan menghasilkan sampel sintetis baru untuk kelas minoritas berdasarkan tetangga terdekat dari sampel minoritas yang ada
+    **Tujuan :**
+      - Meningkatkan Kemampuan Prediksi Kelas Minoritas: Dengan menyeimbangkan distribusi kelas pada data latih, SMOTE membantu model belajar pola dari kelas minoritas secara lebih efektif, yang krusial untuk meningkatkan Recall (kemampuan mendeteksi semua kasus positif diabetes) dan F1-Score model.
+      - Mencegah Bias Model: Mengurangi bias model terhadap kelas mayoritas, sehingga model dapat menggeneralisasi lebih baik pada kedua kelas.
+      - Memastikan Data Uji Tetap Murni: Penting untuk dicatat bahwa SMOTE hanya diterapkan pada data latih. Data uji dibiarkan dalam distribusi aslinya untuk memberikan evaluasi kinerja model yang tidak bias dan realistis terhadap data dunia nyata.
+      
+  5) Standardisasi
+      Setelah pembagian data, penskalaan fitur dilakukan secara terpisah pada training set dan transformasi yang sama diterapkan pada testing set. Teknik penskalaan yang digunakan adalah Standardisasi, melalui StandardScaler dari sklearn.preprocessing.
+
+     **Tujuan :**
+       - Sensitivitas Algoritma: Banyak algoritma machine learning, terutama yang berbasis jarak (seperti K-Nearest Neighbors dan Support Vector Machine) atau yang menggunakan optimasi berbasis gradient descent (seperti Regresi Logistik), sangat sensitif terhadap skala fitur. Jika fitur memiliki rentang nilai yang sangat berbeda, fitur dengan rentang nilai yang lebih besar dapat mendominasi perhitungan jarak atau pembaruan bobot, sehingga fitur dengan rentang nilai kecil menjadi kurang signifikan.
     
-       - Kinerja Model yang Konsisten: Penskalaan memastikan bahwa setiap fitur memiliki "bobot" yang setara dalam perhitungan model, mencegah fitur dominan yang tidak               relevan secara inheren. Ini seringkali menghasilkan model yang lebih stabil dan akurat.
+       - Kinerja Model yang Konsisten: Penskalaan memastikan bahwa setiap fitur memiliki "bobot" yang setara dalam perhitungan model, mencegah fitur dominan yang tidak relevan secara inheren. Ini seringkali menghasilkan model yang lebih stabil dan akurat.
     
 ## Modeling
 Tujuan utama dari proyek ini adalah untuk membangun model klasifikasi machine learning yang dapat memprediksi apakah seorang wanita keturunan Indian Pima berisiko terkena diabetes menggunakan data diagnostik yang tersedia. Untuk mencapai tujuan ini, dua algoritma klasifikasi yang berbeda, yaitu Regresi Logistik dan Support Vector Machine (SVM), diimplementasikan dan dibandingkan untuk mengidentifikasi model yang paling optimal.
 
 ### Logistik Regresi
+
+**Cara Kerja Algoritma:**
+
+Cara kerja Regresi Logistik adalah sebagai berikut:
+
+  1) "Pemberian Skor" Awal: Model pertama-tama akan memberikan "skor" pada setiap orang berdasarkan kombinasi faktor-faktor kesehatan mereka. Skor ini dihitung dengan cara sederhana: setiap faktor dikalikan dengan "bobot" tertentu (yang dipelajari model), lalu hasilnya dijumlahkan. Bobot ini menentukan seberapa penting setiap faktor.
+     
+  2) Mengubah Skor Menjadi Probabilitas (Dengan Fungsi Sigmoid): Skor yang dihasilkan tadi bisa berupa angka berapa pun (negatif, nol, atau positif). Nah, agar bisa menjadi probabilitas (yang nilainya harus antara 0% sampai 100%), model menggunakan sebuah "rumus ajaib" yang disebut Fungsi Sigmoid.
+     
+      - Fungsi Sigmoid ini seperti sebuah konverter: ia mengambil skor mentah dan mengubahnya menjadi angka antara 0 dan 1. Angka 0 berarti probabilitas sangat rendah (0%), dan angka 1 berarti probabilitas sangat tinggi (100%). Bentuk kurvanya seperti huruf "S" landai, memastikan hasilnya selalu berada dalam rentang probabilitas yang valid.
+        
+  3) Pengambilan Keputusan (Ambang Batas): Setelah mendapatkan probabilitas (misalnya, 0.75 atau 75% kemungkinan diabetes), model kemudian membandingkannya dengan sebuah ambang batas (biasanya 0.5 atau 50%).
+     - Jika probabilitas di atas 0.5, maka model memprediksi orang tersebut cenderung diabetes.
+     - Jika probabilitas di bawah 0.5, maka model memprediksi orang tersebut cenderung tidak diabetes.
+  4) "Belajar dari Kesalahan" (Fungsi Kerugian): Bagaimana model bisa menemukan bobot yang tepat untuk setiap faktor? Ini dilakukan melalui proses "belajar".
+     - Model akan membuat prediksi awal, lalu melihat seberapa jauh prediksi probabilitasnya dari kenyataan (apakah orang itu benar-benar diabetes atau tidak). Perbedaan ini diukur menggunakan Fungsi Kerugian (Loss Function), yang sering disebut log-loss.
+     - Log-loss ini memberi tahu model seberapa "buruk" prediksinya. Semakin besar nilai log-loss, semakin jauh prediksi model dari kebenaran.
+     - Model kemudian secara berulang-ulang menyesuaikan bobotnya sedikit demi sedikit, mencoba mengurangi nilai log-loss ini sampai seminimal mungkin. Proses ini seperti belajar dari kesalahan untuk menjadi lebih akurat.  
   1) Proses Pemodelan :
      - Inisialisasi Model: Model LogisticRegression diinisialisasi dari sklearn.linear_model.
      - Pelatihan Model: Model dilatih menggunakan data latih yang telah distandardisasi (X_train_scaled, y_train_smote) dengan memanggil metode fit().
@@ -245,6 +272,9 @@ Tujuan utama dari proyek ini adalah untuk membangun model klasifikasi machine le
     
       - Proses GridSearchCV menggunakan estimator=log_reg_model, param_grid=param_grid_lr, cv=5 (5-fold cross-validation), scoring='recall' (metrik yang diutamakan untuk            pemilihan model terbaik), n_jobs=-1 (menggunakan semua core CPU), dan verbose=1.
       - Hasil terbaik dari tuning ini adalah best_lr_params, dan model terbaiknya adalah best_lr_model.
+      - Nilai Parameter Terbaik Regresi Logistik:
+          - c = 0.1
+          - solver = 'lbfgs'
 
   3) Kelebihan
      - Sederhana dan Mudah Diinterpretasikan: Karena merupakan model linear, bobot yang dipelajari untuk setiap fitur dapat diinterpretasikan sebagai indikator pentingnya          fitur tersebut terhadap outcome.
@@ -272,6 +302,10 @@ Tujuan utama dari proyek ini adalah untuk membangun model klasifikasi machine le
            - gamma: ['scale', 'auto'] (Koefisien kernel untuk 'rbf', 'poly' dan 'sigmoid'. scale menggunakan 1 / (n_features * X.var()) dan auto menggunakan 1 / n_features).
      - Proses GridSearchCV menggunakan estimator=svm_model, param_grid=param_grid_svm, cv=5 (5-fold cross-validation), scoring='recall' (metrik yang diutamakan untuk               pemilihan model terbaik), n_jobs=-1 (menggunakan semua core CPU), dan verbose=1.
      - Hasil terbaik dari tuning ini adalah best_svm_params, dan model terbaiknya adalah best_svm_model.
+     - Nilai parameter terbaik SVM :
+         - c = 10
+         - gamma = 'scale'
+         - kernel = 'rbf'
 
   3) Kelebihan
      - Efektif di Ruang Berdimensi Tinggi: Bekerja dengan baik bahkan ketika jumlah fitur lebih besar dari jumlah sampel.
