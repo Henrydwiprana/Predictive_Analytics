@@ -149,7 +149,8 @@ Dataset ini dapat diakses dan diunduh dari Kaggle, sebuah platform populer untuk
          
        - df.info(): Menyediakan ringkasan singkat tentang DataFrame, termasuk jumlah entri, jumlah kolom, tipe data masing-masing kolom (misalnya, int64, float64), dan keberadaan nilai non-null. Ini membantu dalam mengidentifikasi apakah ada kolom dengan nilai yang hilang secara eksplisit (NaN) pada tahap awal
 
-         ![info](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/info.png)
+        ![info](https://github.com/user-attachments/assets/3fa5df32-a77e-4505-ad86-fc958d3a0ba5)
+
 
   2) Statistik Deskriptif dan Identifikasi Nilai Tidak Masuk Akal
        - df.describe(): Menghasilkan statistik deskriptif untuk setiap kolom numerik, seperti hitungan (count), rata-rata (mean), standar deviasi (std), nilai minimum       
@@ -158,7 +159,8 @@ Dataset ini dapat diakses dan diunduh dari Kaggle, sebuah platform populer untuk
          Seperti yang telah dibahas sebelumnya, observasi penting dari df.describe() adalah adanya nilai 0 pada kolom Glucose, BloodPressure, SkinThickness, Insulin, dan             BMI. Nilai nol untuk fitur-fitur ini secara medis tidak masuk akal (misalnya, tekanan darah nol atau BMI nol pada individu hidup). Ini mengindikasikan bahwa 0               sebenarnya mewakili nilai yang hilang (missing values), bukan pengukuran yang valid.
 
       
-          ![describe](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/describe.png)
+          ![describe](https://github.com/user-attachments/assets/14afcc96-01c3-4afa-889d-bb9aa0cf8c37)
+
 
          
   3) Persebaran Data (Boxplot)
@@ -166,30 +168,35 @@ Dataset ini dapat diakses dan diunduh dari Kaggle, sebuah platform populer untuk
 
        - Glucose
          
-         ![boxplot_glucose](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/glucose_boxplot.png)
-         
+          ![glucose_boxplot](https://github.com/user-attachments/assets/9cf3bfdd-492e-481d-b87e-cf605614d703)
+
+
        - BMI
          
-         ![boxplot_bmi](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/bmi_boxplot.png)
+        ![bmi_boxplot](https://github.com/user-attachments/assets/9c9c93be-0494-4c69-860f-b942fa4ba7bc)
+
          
        - Insulin
          
-         ![boxplot_insulin](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/insulin_boxplot.png)
-  
-  4) Visualisasi Distribusi Fitur
+         ![insulin_boxplot](https://github.com/user-attachments/assets/f0f02880-fc45-47dc-94ca-c26237fd258f)
+
+  3) Visualisasi Distribusi Fitur
      Visualisasi ini memungkinkan kita melihat bentuk distribusi masing-masing fitur (misalnya, apakah terdistribusi normal, skewed, atau multimodal). Ini juga membantu          mengidentifikasi outlier atau anomali yang mungkin belum terdeteksi. Setelah imputasi, histogram juga menunjukkan bagaimana distribusi berubah setelah nilai nol diisi.
      
-     ![histogram](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/histogram_features.png)
+     ![histogram_features](https://github.com/user-attachments/assets/0986bf91-540d-43c2-8017-55fc31568578)
 
-  5) Visualisasi Hubungan Fitur dengan Target (Box Plots)
+
+  4) Visualisasi Hubungan Fitur dengan Target (Box Plots)
      Box plot sangat efektif untuk membandingkan distribusi suatu fitur antara dua kelompok (diabetes vs. non-diabetes). Kita dapat melihat apakah ada perbedaan median,          rentang interkuartil, dan keberadaan outlier yang berbeda antara kedua kelas. Ini membantu mengidentifikasi fitur mana yang paling diskriminatif atau memiliki kekuatan      prediktif tinggi terhadap diabetes. Misalnya, Glucose dan BMI kemungkinan besar akan menunjukkan perbedaan distribusi yang signifikan antara kelompok sehat dan              diabetes.
 
-     ![korelasi_plot](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/pair_plot.png)
+     ![pair_plot](https://github.com/user-attachments/assets/d50d60be-80e5-4090-8304-65f891d7ce68)
 
-  6) Analisis Korelasi
+
+  5) Analisis Korelasi
      Matriks korelasi menunjukkan kekuatan dan arah hubungan linear antara setiap pasangan fitur.
 
-     ![matrix_korelasi](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/corr_matrix.png)
+      ![corr_matrix](https://github.com/user-attachments/assets/2722d1a4-7619-49e1-8204-89544f732037)
+
 
 ## Data Preparation
 
@@ -349,7 +356,8 @@ Dalam masalah klasifikasi biner seperti deteksi diabetes, metrik evaluasi yang k
 
      Formula:
 
-     ![accuracy_formula](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/accuracy_formula.png)
+     ![accuracy_formula](https://github.com/user-attachments/assets/47ace958-556a-4fc1-b729-e6320526c35a)
+
      
      Cara kerja : Akurasi bekerja dengan menghitung rasio jumlah prediksi yang tepat (TP + TN) terhadap total jumlah semua sampel (TP + TN + FP + FN). Ini ideal ketika           dataset memiliki distribusi kelas yang seimbang. Namun, jika ada ketidakseimbangan kelas (misalnya, jauh lebih banyak pasien non-diabetes daripada diabetes), akurasi        tinggi bisa menyesatkan karena model mungkin hanya pandai memprediksi kelas mayoritas.
 
@@ -358,7 +366,8 @@ Dalam masalah klasifikasi biner seperti deteksi diabetes, metrik evaluasi yang k
 
      Formula:
 
-     ![Precision_formula](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/Precision_formula.png)
+      ![Precision_formula](https://github.com/user-attachments/assets/933959c4-136f-453b-96ba-7579ad47bdee)
+
 
      Cara Kerja:  Presisi fokus pada kualitas prediksi positif. Sebuah model dengan precision tinggi memiliki sedikit false positives. Dalam konteks medis, precision             tinggi berarti model jarang salah mendiagnosis seseorang yang sehat sebagai diabetes.
 
@@ -367,7 +376,7 @@ Dalam masalah klasifikasi biner seperti deteksi diabetes, metrik evaluasi yang k
 
      Formula:
 
-     ![reacll_formula](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/recall_formula.png)
+      ![recall_formula](https://github.com/user-attachments/assets/39d42cd0-d4ce-444d-ad01-2ebac341347d)
 
      Cara Kerja: Recall fokus pada menemukan semua kasus positif. Sebuah model dengan recall tinggi memiliki sedikit false negatives. Dalam konteks diagnosis diabetes,           recall sangat penting karena false negatives (pasien diabetes yang tidak terdeteksi) dapat menyebabkan komplikasi kesehatan yang parah.
 
@@ -376,8 +385,7 @@ Dalam masalah klasifikasi biner seperti deteksi diabetes, metrik evaluasi yang k
 
      Formula:
 
-     ![f1score_formula](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/f1score_formula.png)
-
+     ![f1score_formula](https://github.com/user-attachments/assets/e3c3aa15-6203-4dd6-a8e6-e0bb2d2f4c5e)
 
      Cara Kerja : F1-Score memberikan skor tunggal yang menyeimbangkan precision dan recall. Ini sangat berguna ketika kita membutuhkan keseimbangan yang baik antara             menghindari false positives dan false negatives.
 
@@ -386,7 +394,8 @@ Dalam masalah klasifikasi biner seperti deteksi diabetes, metrik evaluasi yang k
 
      Formula:
 
-     ![confusion_formula](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/confusion_formula.png)
+     ![confusion_formula](https://github.com/user-attachments/assets/850338c5-1648-41c1-b8bf-b2137896935c)
+
 
      Cara Kerja: Dengan melihat Confusion Matrix, kita dapat dengan cepat mengidentifikasi jenis kesalahan yang paling sering dilakukan model (misalnya, apakah model             cenderung menghasilkan lebih banyak false positives atau false negatives). Ini adalah dasar perhitungan untuk precision, recall, dan F1-score.
 
@@ -396,7 +405,7 @@ Berdasarkan analisis Classification Report dan Confusion Matrix dari kedua model
 
 ### Regresi Logistik
 
-  ![hasil_lr](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/hasil_lr.png)
+ ![hasil_lr](https://github.com/user-attachments/assets/91e911a7-204e-45f9-b830-fcc6eb5c6c7a)
 
   1) Confusion Matrix
      - TP: 18 (pasien diabetes diprediksi diabetes)
@@ -414,7 +423,7 @@ Berdasarkan analisis Classification Report dan Confusion Matrix dari kedua model
 
 ### Support Vector Machine
 
-  ![hasil_svm](https://github.com/Henrydwiprana/Predictive_Analytics/blob/main/Gambar_Laporan/hasil_svm.png)
+ ![hasil_svm](https://github.com/user-attachments/assets/d9c782ad-76fb-4d65-ae34-5a07751c13f7)
 
    1) Confnusion Matrix:
       - TP: 17 (pasien diabetes diprediksi diabetes)
