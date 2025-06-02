@@ -231,11 +231,13 @@ Dataset ini dapat diakses dan diunduh dari Kaggle, sebuah platform populer untuk
   4) SMOTE
        Pada dataset prediksi diabetes, seringkali ditemukan adanya ketidakseimbangan kelas (class imbalance), di mana jumlah sampel dari kelas minoritas (misalnya, pasien diabetes) jauh lebih sedikit dibandingkan kelas mayoritas (non-diabetes). Jika tidak ditangani, model cenderung bias terhadap kelas mayoritas dan kurang baik dalam memprediksi kelas minoritas.
 
-Untuk mengatasi hal ini, teknik Synthetic Minority Over-sampling Technique (SMOTE) diterapkan pada data latih (X_train, y_train) setelah pembagian data. SMOTE bekerja dengan menghasilkan sampel sintetis baru untuk kelas minoritas berdasarkan tetangga terdekat dari sampel minoritas yang ada
-    **Tujuan :**
-      - Meningkatkan Kemampuan Prediksi Kelas Minoritas: Dengan menyeimbangkan distribusi kelas pada data latih, SMOTE membantu model belajar pola dari kelas minoritas secara lebih efektif, yang krusial untuk meningkatkan Recall (kemampuan mendeteksi semua kasus positif diabetes) dan F1-Score model.
-      - Mencegah Bias Model: Mengurangi bias model terhadap kelas mayoritas, sehingga model dapat menggeneralisasi lebih baik pada kedua kelas.
-      - Memastikan Data Uji Tetap Murni: Penting untuk dicatat bahwa SMOTE hanya diterapkan pada data latih. Data uji dibiarkan dalam distribusi aslinya untuk memberikan evaluasi kinerja model yang tidak bias dan realistis terhadap data dunia nyata.
+Untuk mengatasi hal ini, teknik Synthetic Minority Over-sampling Technique (SMOTE) diterapkan pada data latih (X_train, y_train) setelah pembagian data. SMOTE bekerja dengan menghasilkan sampel sintetis baru untuk kelas minoritas berdasarkan tetangga terdekat dari sampel minoritas yang ada.
+
+
+  **Tujuan :**
+  - Meningkatkan Kemampuan Prediksi Kelas Minoritas: Dengan menyeimbangkan distribusi kelas pada data latih, SMOTE membantu model belajar pola dari kelas minoritas secara lebih efektif, yang krusial untuk meningkatkan Recall (kemampuan mendeteksi semua kasus positif diabetes) dan F1-Score model.
+  - Mencegah Bias Model: Mengurangi bias model terhadap kelas mayoritas, sehingga model dapat menggeneralisasi lebih baik pada kedua kelas.
+  - Memastikan Data Uji Tetap Murni: Penting untuk dicatat bahwa SMOTE hanya diterapkan pada data latih. Data uji dibiarkan dalam distribusi aslinya untuk memberikan evaluasi kinerja model yang tidak bias dan realistis terhadap data dunia nyata.
       
   5) Standardisasi
       Setelah pembagian data, penskalaan fitur dilakukan secara terpisah pada training set dan transformasi yang sama diterapkan pada testing set. Teknik penskalaan yang digunakan adalah Standardisasi, melalui StandardScaler dari sklearn.preprocessing.
@@ -254,19 +256,35 @@ Tujuan utama dari proyek ini adalah untuk membangun model klasifikasi machine le
 
 Cara kerja Regresi Logistik adalah sebagai berikut:
 
-  1) "Pemberian Skor" Awal: Model pertama-tama akan memberikan "skor" pada setiap orang berdasarkan kombinasi faktor-faktor kesehatan mereka. Skor ini dihitung dengan cara sederhana: setiap faktor dikalikan dengan "bobot" tertentu (yang dipelajari model), lalu hasilnya dijumlahkan. Bobot ini menentukan seberapa penting setiap faktor.
+  1) "Pemberian Skor" Awal: Model menghitung skor linier dengan menjumlahkan hasil perkalian antara setiap fitur input dengan bobot (koefisien) yang dipelajari model.
      
-  2) Mengubah Skor Menjadi Probabilitas (Dengan Fungsi Sigmoid): Skor yang dihasilkan tadi bisa berupa angka berapa pun (negatif, nol, atau positif). Nah, agar bisa menjadi probabilitas (yang nilainya harus antara 0% sampai 100%), model menggunakan sebuah "rumus ajaib" yang disebut Fungsi Sigmoid.
+     ![pemberianscore_lr](https://github.com/user-attachments/assets/241cba84-6205-499c-ab88-a2a27295eeef)
+
      
-      - Fungsi Sigmoid ini seperti sebuah konverter: ia mengambil skor mentah dan mengubahnya menjadi angka antara 0 dan 1. Angka 0 berarti probabilitas sangat rendah (0%), dan angka 1 berarti probabilitas sangat tinggi (100%). Bentuk kurvanya seperti huruf "S" landai, memastikan hasilnya selalu berada dalam rentang probabilitas yang valid.
-        
-  3) Pengambilan Keputusan (Ambang Batas): Setelah mendapatkan probabilitas (misalnya, 0.75 atau 75% kemungkinan diabetes), model kemudian membandingkannya dengan sebuah ambang batas (biasanya 0.5 atau 50%).
+  2) Transformasi ke Probabilitas (Fungsi Sigmoid):
+     Skor linear tersebut dikonversi ke bentuk probabilitas menggunakan fungsi sigmoid:
+
+     ![fungsi_sigmoid_lr](https://github.com/user-attachments/assets/da099af2-395b-4f1c-a03b-efbce15a1ed4)
+
+        Fungsi sigmoid (juga disebut fungsi logistik) adalah fungsi matematis yang mengkonversi skor linear (𝑧) menjadi nilai probabilitas antara 0 dan 1:
+     - Input 𝑧 adalah hasil dari kombinasi linier dari fitur:
+       
+     ![pemberianscore_lr](https://github.com/user-attachments/assets/ddab632e-d5d6-4203-bf68-c809393dd216)
+
+     - Output 𝜎(𝑧) adalah probabilitas bahwa suatu sampel termasuk ke dalam kelas positif (misalnya, memiliki diabetes).
+    **Tujuan :**
+      - Mengubah nilai yang bisa sangat kecil atau sangat besar menjadi probabilitas antara 0 dan
+      - Bersifat monotonik: semakin tinggi skor z, semakin dekat probabilitas ke 1.
+      - Berguna untuk mengambil keputusan klasifikasi berdasarkan probabilitas (> 0.5 → kelas 1,            sebaliknya kelas 0).
+     
+  4) Pengambilan Keputusan (Ambang Batas): Setelah mendapatkan probabilitas (misalnya, 0.75 atau 75% kemungkinan diabetes), model kemudian membandingkannya dengan sebuah ambang batas (biasanya 0.5 atau 50%).
      - Jika probabilitas di atas 0.5, maka model memprediksi orang tersebut cenderung diabetes.
      - Jika probabilitas di bawah 0.5, maka model memprediksi orang tersebut cenderung tidak diabetes.
-  4) "Belajar dari Kesalahan" (Fungsi Kerugian): Bagaimana model bisa menemukan bobot yang tepat untuk setiap faktor? Ini dilakukan melalui proses "belajar".
+  5) "Belajar dari Kesalahan" (Fungsi Kerugian): Bagaimana model bisa menemukan bobot yang tepat untuk setiap faktor? Ini dilakukan melalui proses "belajar".
      - Model akan membuat prediksi awal, lalu melihat seberapa jauh prediksi probabilitasnya dari kenyataan (apakah orang itu benar-benar diabetes atau tidak). Perbedaan ini diukur menggunakan Fungsi Kerugian (Loss Function), yang sering disebut log-loss.
      - Log-loss ini memberi tahu model seberapa "buruk" prediksinya. Semakin besar nilai log-loss, semakin jauh prediksi model dari kebenaran.
-     - Model kemudian secara berulang-ulang menyesuaikan bobotnya sedikit demi sedikit, mencoba mengurangi nilai log-loss ini sampai seminimal mungkin. Proses ini seperti belajar dari kesalahan untuk menjadi lebih akurat.  
+     - Model kemudian secara berulang-ulang menyesuaikan bobotnya sedikit demi sedikit, mencoba mengurangi nilai log-loss ini sampai seminimal mungkin. Proses ini seperti belajar dari kesalahan untuk menjadi lebih akurat.
+       
   1) Proses Pemodelan :
      - Inisialisasi Model: Model LogisticRegression diinisialisasi dari sklearn.linear_model.
      - Pelatihan Model: Model dilatih menggunakan data latih yang telah distandardisasi (X_train_scaled, y_train_smote) dengan memanggil metode fit().
@@ -294,8 +312,19 @@ Cara kerja Regresi Logistik adalah sebagai berikut:
      - Tidak Baik untuk Masalah Kompleks: Kinerjanya bisa buruk pada masalah dengan hubungan fitur yang sangat kompleks atau non-linear.
 
   ### Support Vector Machine
+  
+  **Konsep Margin Maximization & Support Vectors**
+  
+  SVM bekerja dengan mencari hyperplane optimal yang memisahkan dua kelas data. Namun, yang membuat SVM unik adalah strateginya memaksimalkan margin.
+    **Margin Maximization:**
+      - Margin adalah jarak dari hyperplane ke titik-titik data terdekat dari masing-masing kelas.
+      - Tujuan utama SVM adalah menemukan hyperplane yang memaksimalkan margin, karena margin yang lebih besar berarti generalisasi model lebih baik.
+      Semakin besar margin, semakin "aman" prediksi model terhadap variasi data baru.
 
-  Support Vector Machine (SVM) adalah algoritma klasifikasi yang kuat yang bekerja dengan menemukan hyperplane (batas keputusan) terbaik yang secara optimal memisahkan kelas-kelas dalam ruang fitur. Untuk data yang tidak dapat dipisahkan secara linear, SVM menggunakan teknik kernel trick untuk memetakan data ke ruang berdimensi lebih tinggi di mana pemisahan linear mungkin dilakukan.
+  **Support Vectors**
+    - Support vectors adalah titik-titik data terdekat dari masing-masing kelas terhadap hyperplane.
+    - Titik-titik ini menentukan posisi hyperplane. Jika support vectors dihapus, posisi hyperplane bisa berubah.
+    -  Hanya support vectors yang memiliki kontribusi langsung terhadap fungsi keputusan. Titik data lainnya tidak berpengaruh langsung.
 
   1) Proses Pemodelan :
       - Inisialisasi Model: Model SVC (Support Vector Classifier) diinisialisasi dari sklearn.svm
